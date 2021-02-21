@@ -1,0 +1,102 @@
+package sieveOfEratosthenes1;
+
+import java.util.Scanner;
+
+public class sieveOfEratosthenes1 {
+	
+	public static boolean[] createSequence(int N)
+	{
+		boolean[] numbers = new boolean[N-1];
+		for (int i = 0; i < numbers.length; i++)
+		{
+			numbers[i] = true;
+		}
+		
+		return numbers;
+	}
+	
+	public static void crossOutHigherMultiples(boolean[] numbers, int n)
+	{
+		if (numbers != null && n >= 2 && n < numbers.length)
+		{
+			for (int i = n - 1; i < numbers.length; i++)
+			{
+				if ((i + 2) % n == 0) {
+					numbers[i] = false;
+				}
+			}
+		}
+	}
+	
+	public static boolean[] sieve(int N) 
+	{
+		boolean[] numbers = createSequence(N);
+		System.out.println(nonCrossedOutSubseqToString(numbers));
+		
+		for (int i = 2; i < N; i++)
+		{
+			String sequence1 = sequenceToString(numbers);
+			crossOutHigherMultiples(numbers, i);
+			String sequence2 = sequenceToString(numbers);
+			if (!sequence1.equals(sequence2)) 
+			{
+				System.out.println(sequenceToString(numbers));
+			}
+		}
+		
+		System.out.println(nonCrossedOutSubseqToString(numbers));
+		
+		return numbers;
+	}
+	
+	public static String sequenceToString(boolean[] numbers)
+	{
+		String sequence = "" + 2;
+		
+		if (numbers != null)
+		{
+			for (int i = 1; i < numbers.length; i++)
+			{
+				if (numbers[i])
+				{
+					sequence = sequence + ", " + (i + 2);
+				}
+				else
+				{
+					sequence = sequence + ", [" + (i + 2) + "]";
+				}
+			}
+		}
+		
+		return sequence;
+	}
+	
+	public static String nonCrossedOutSubseqToString(boolean[] numbers)
+	{
+		String sequence = "" + 2;
+		
+		if (numbers != null) {
+			for (int i = 1; i < numbers.length; i++) 
+			{
+				if (numbers[i])
+				{
+					sequence = sequence + ", " + (i + 2);
+				}
+			}
+		}
+		
+		return sequence;
+	}
+	
+	public static void main(String[] args)
+	{
+			System.out.print("Enter int >= 2 : ");
+			Scanner input = new Scanner(System.in);
+			int N = input.nextInt();
+			input.close();
+			sieve(N);
+		}
+		
+	
+
+}

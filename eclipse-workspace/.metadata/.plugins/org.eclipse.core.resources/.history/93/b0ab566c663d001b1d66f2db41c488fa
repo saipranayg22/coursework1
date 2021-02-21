@@ -1,0 +1,187 @@
+import java.util.Scanner;
+import java.util.Arrays;
+public class Median {
+
+	public static final double MIN_INPUT=0.0;
+	public static void main(String[] args) {
+		System.out.print("Welcome to the median & rolling average system.");
+		boolean finish=false;
+		double[] givenNumber=new double[1];
+		int length=-1;
+		
+		
+		do
+		{ System.out.print("\nEnter a number (or enter quit):");
+			Scanner input=new Scanner(System.in);
+			double index= 1;	
+			if ( (input.hasNextDouble()))
+			{
+				double currentNumber = input.nextDouble();
+				length++;
+				givenNumber[length]=currentNumber;
+				
+			;
+				if ((currentNumber >= MIN_INPUT))
+				{
+					int numberofvalues1=3;
+					double median = computeMedian( givenNumber );
+					double runningAverage = computeRollingAverage( givenNumber,  numberofvalues1 );
+					String convertedNumbers= convertToString(givenNumber);
+					System.out.printf("The median of " + convertedNumbers + " is " + median + " and the rolling average of the last 3 values is %.1f.",runningAverage);
+				}
+				givenNumber = extend(givenNumber , index , currentNumber);
+				
+				}
+			else if(input.hasNext("quit"))
+			{
+				finish= true;
+			}
+			else
+			{
+				System.out.print("Error - Enter any real number or quit.");
+			}
+			
+				
+			}while(finish!=true);
+			
+		}
+	
+	
+	private static double[] extendconvertToString(double[] convertToString, double numberOfExtraCells) {
+		int cellsToAdd = (int) ((numberOfExtraCells>0) ?
+				numberOfExtraCells:0);
+				double[] newArray = new double[ (convertToString==null) ? cellsToAdd :
+				convertToString.length+cellsToAdd];
+				if (convertToString!= null)
+				System.arraycopy( convertToString, 0, newArray, 0,
+				convertToString.length );
+				if (cellsToAdd != 0)
+				for (int index=newArray.length-cellsToAdd;
+				index<newArray.length; index++)
+				newArray[index] = 0;
+				return newArray;
+				}
+	
+
+
+	private static double[] extendtemp(double[] temp, double numberOfExtraCells) {
+		int cellsToAdd = (int) ((numberOfExtraCells>0) ?
+				numberOfExtraCells:0);
+				double[] newArray = new double[ (temp==null) ? cellsToAdd :
+				temp.length+cellsToAdd];
+				if (temp!= null)
+				System.arraycopy( temp, 0, newArray, 0,
+				temp.length );
+				if (cellsToAdd != 0)
+				for (int index=newArray.length-cellsToAdd;
+				index<newArray.length; index++)
+				newArray[index] = 0;
+				return newArray;
+				}
+	
+
+
+	
+
+	private static double[] extend(double[] runningnumbers, double index, double currentNumber) {
+		
+		int cellsToAdd = (int) ((index>0) ?
+				index:0);
+				double[] newArray = new double[ (runningnumbers==null) ? cellsToAdd :
+				runningnumbers.length+cellsToAdd];
+				if (runningnumbers!= null)
+				System.arraycopy( runningnumbers, 0, newArray, 0,
+				runningnumbers.length );
+				if (cellsToAdd != 0)
+				for (double index1=newArray.length-cellsToAdd;
+				index1<newArray.length; index1++)
+				newArray[(int) index1] = 0;
+				return newArray;
+				}
+
+
+	
+
+	public static String  convertToString(double[] array) {
+		String arrayString = "{ ";
+		if (array != null) {
+			for (int index = 0; index < array.length; index++){
+				arrayString += String.format("%.1f", array[index]);
+				if((array.length >1)&& (array.length - index != 1)) {
+					arrayString = arrayString + ", ";
+				}
+			}
+			arrayString += " }";
+			return arrayString;
+		}
+		else {
+			return"{ }";
+		}
+	
+	}
+
+	public static double[] createSortedArray(double[] givenNumbers) {
+		if(givenNumbers!=null)
+		{
+			double[] temporaryarray=Arrays.copyOf(givenNumbers, givenNumbers.length);
+		 Arrays.sort(temporaryarray);
+		 return temporaryarray;
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	public static double computeRollingAverage(double[] givenNumbers,int numberofvalues1) {
+		 if((givenNumbers!=null)&&(numberofvalues1!=0))
+		 {
+			 
+			 
+			 double[] rollingAverage= new double[(int) numberofvalues1];
+				if(givenNumbers.length<=numberofvalues1)
+				{
+					System.arraycopy(givenNumbers, 0, rollingAverage, 0, givenNumbers.length);
+					
+					int total=0;
+					for (int index=0; index<givenNumbers.length; index++)
+						total += givenNumbers[index];
+					return total/givenNumbers.length;
+				}
+				else 
+				{
+				System.arraycopy(givenNumbers, (int)givenNumbers.length-numberofvalues1, rollingAverage, 0, numberofvalues1);
+				double total=0;
+				for (int index=0; index<numberofvalues1; index++)
+					total += rollingAverage[index];
+				return total/numberofvalues1;
+				}
+			}
+
+		 else
+		 {
+			 return 0;
+		 }
+		 
+	}
+
+	public static double computeMedian(double[] runningnumber)
+	{
+		if(runningnumber==null)
+		return 0.0;
+		double[] temporaryarray=Arrays.copyOf(runningnumber, runningnumber.length);
+		 Arrays.sort(temporaryarray);
+		
+		if(temporaryarray.length%2==0)
+		{
+			return (double)(temporaryarray[(temporaryarray.length - 1) / 2] + temporaryarray[temporaryarray.length / 2]) / 2.0;
+		}
+		else
+		{
+			return (double)temporaryarray[(int)temporaryarray.length / 2];
+		
+		}
+		
+	}
+	
+}

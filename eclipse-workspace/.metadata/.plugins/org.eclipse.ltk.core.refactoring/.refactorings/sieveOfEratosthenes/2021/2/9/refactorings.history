@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;allTheNumbers&apos; in &apos;sieveOfEratosthenes.sieveOfEratosthenes.createSequence(...)&apos; to &apos;numbersWithoutOne&apos;&#x0D;&#x0A;- Original project: &apos;sieveOfEratosthenes&apos;&#x0D;&#x0A;- Original element: &apos;sieveOfEratosthenes.sieveOfEratosthenes.createSequence(int).allTheNumbers&apos;&#x0D;&#x0A;- Renamed element: &apos;allTheNumbers&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;allTheNumbers&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;sieveOfEratosthenes{sieveOfEratosthenes.java[sieveOfEratosthenes~createSequence~I@allTheNumbers!390!422!395!407!\[I!0!false" name="numbersWithoutOne" references="true" stamp="1613920258116" version="1.0"/>
+</session>
